@@ -1,24 +1,41 @@
-export default function CarsList({ cars }) {
+import { useEffect, useState } from 'react';
 
-    console.log("cars = ", cars)
+export default function CarsList({ cars }) {
+    const [cars2, setCars2] = useState();
+
+    useEffect(async () => {
+        const cars2 = await loadCars();
+        setCars2(cars2);
+    }, [])
+
     return <>
         <h1>List of cars</h1>
         <ul>
             {cars.map((c) => {
                 const url = `/cars/${c}`;
-                return <li keys={c}><a href={url}>{c}</a></li>
+                return <li key={c}><a href={url}>{c}</a></li>
+            })}
+        </ul>
+        <p>MIDDLE</p>
+        <ul>
+            {cars2?.map((c) => {
+                const url = `/cars/${c}`;
+                return <li key={c}><a href={url}>{c}</a></li>
             })}
         </ul>
     </>
 }
 
 
-export async function getServerSideProps({ params }) {
+export async function loadCars() {
 
     const req = await fetch(`http://localhost:3000/cars.json`);
-    const data = await req.json();
+    return await req.json();
+}
 
+
+export async function getServerSideProps({ params }) {
     return {
-        props: { cars: data },
+        props: { cars: await loadCars() },
     }
 }
