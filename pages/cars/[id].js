@@ -9,13 +9,19 @@ export default function Car({ car }) {
     return (
         <>
             <Head>
-                <title>My car is {car.color}</title>
+                <title>My car is {car.name}</title>
+                <meta name="description" content="Check out this car !" />
+                <link rel='canonical' href={`/cars/${id}`} />
             </Head>
             <h1>Hello {id}</h1>
             <p>{car.name}</p>
             <p>{car.color}</p>
         </>
     )
+}
+
+function byPopulation(a, b) {
+    return a.population - b.population;
 }
 
 export async function getServerSideProps({ params }) {
