@@ -20,10 +20,6 @@ export default function Car({ car }) {
     )
 }
 
-function byPopulation(a, b) {
-    return a.population - b.population;
-}
-
 export async function getServerSideProps({ params }) {
 
     const req = await fetch(`http://localhost:3000/${params.id}.json`);

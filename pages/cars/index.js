@@ -103,16 +103,16 @@ export async function loadCars() {
 }
 
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ req, res }) {
 
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
-    myHeaders.append('Accept', 'application/json');  
+    myHeaders.append('Accept', 'application/json');
 
     var raw = JSON.stringify([
         "toto",
         "tata",
-        "titi"
+        "titi",
     ]);
 
     var requestOptions = {
@@ -122,10 +122,13 @@ export async function getServerSideProps({ params }) {
         redirect: 'follow'
     };
 
-    const req = await fetch("https://postman-echo.com/post", requestOptions);
-    const json = await req.json();
+    const echo = await fetch("https://postman-echo.com/post", requestOptions);
+    const json = await echo.json();
+
+    // const delay = await fetch("https://postman-echo.com/delay/3");
+    // const rep = await delay.json();
 
     return {
-        props: { cars: json.data },
+        props: { cars: json.data }
     }
 }
