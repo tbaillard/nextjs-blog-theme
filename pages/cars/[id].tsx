@@ -1,4 +1,4 @@
-import { useRoute, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 
 export default function Car({ car }) {

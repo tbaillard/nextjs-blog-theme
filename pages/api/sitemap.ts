@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       headers: myHeaders,
       body: raw,
       redirect: 'follow'
-  };
+  } as RequestInit;
 
   const echo = await fetch("https://postman-echo.com/post", requestOptions);
   const json = await echo.json();

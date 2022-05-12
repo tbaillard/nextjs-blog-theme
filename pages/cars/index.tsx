@@ -2,18 +2,24 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 export default function CarsList({ cars }) {
-    const [cars2, setCars2] = useState();
+    const [cars2, setCars2] = useState(null);
     const [search, setSearch] = useState("");
     const [cities, setCities] = useState([]);
 
-    useEffect(async () => {
-        const cars2 = await loadCars();
-        setCars2(cars2);
+    useEffect(() => {
+        async function load() {
+            const cars2 = await loadCars();
+            setCars2(cars2);
+        }
+        load();
     }, [])
 
-    useEffect(async () => {
-        const result = await getFrenchCity(search);
-        setCities(result);
+    useEffect(() => {
+        async function get() {
+            const result = await getFrenchCity(search);
+            setCities(result);
+        }
+        get();
     }, [search])
 
     function handleChange(event) {
@@ -120,7 +126,7 @@ export async function getServerSideProps({ req, res }) {
         headers: myHeaders,
         body: raw,
         redirect: 'follow'
-    };
+    } as RequestInit;
 
     const echo = await fetch("https://postman-echo.com/post", requestOptions);
     const json = await echo.json();
