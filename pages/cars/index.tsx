@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import Link from 'next/link'
 
 export default function CarsList({ cars }) {
     const [cars2, setCars2] = useState(null);
@@ -38,14 +39,22 @@ export default function CarsList({ cars }) {
         <ul>
             {cars.map((c) => {
                 const url = `/cars/${c}`;
-                return <li key={c}><a href={url}>{c}</a></li>
+                return <li key={c}>
+                    <Link href={url}>
+                        <a>{c}</a>
+                    </Link>
+                </li>
             })}
         </ul>
         <p>MIDDLE</p>
         <ul>
             {cars2?.map((c) => {
                 const url = `/cars/${c}`;
-                return <li key={c}><a href={url}>{c}</a></li>
+                return <li key={c}>
+                    <Link href={url}>
+                        <a>{c}</a>
+                    </Link>
+                </li>
             })}
         </ul>
         <p>CITIES</p>

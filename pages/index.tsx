@@ -1,9 +1,11 @@
-
+import Link from 'next/link'
 
 export default function Index() {
   return (
     <>
-      <a href="/cars">CARS</a>
+      <Link href="/cars">
+        <a>CARS</a>
+      </Link>
     </>
   );
 }
